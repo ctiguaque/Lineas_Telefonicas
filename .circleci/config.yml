@@ -1,30 +1,17 @@
+# Java Gradle CircleCI 2.0 configuration file
 #
-# Build configuration for Circle CI
+# Check https://circleci.com/docs/2.0/language-java/ for more details
 #
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
 
-general:
-    artifacts:
-        - /home/ubuntu/weather_app/app/build/outputs/apk/
-        - /usr/lib/jvm/
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
 
-machine:
-    environment:
-        JAVA6_HOME: /usr/lib/jvm/java-6-openjdk-amd64
-
-    java:
-      version: openjdk8
-
-dependencies:
-    override:
-        - echo y | sudo apt-get update
-        - echo y | sudo apt-get install libpango-1.0-0
-        - echo y | sudo apt-get install openjdk-6-jre
-
-
-test:
-    override:
-        - (./gradlew assemble):
-            timeout: 360
-
-        - (./gradlew test):
-            timeout: 360
+    working_directory: ~/repo
